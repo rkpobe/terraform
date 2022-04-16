@@ -13,3 +13,9 @@ variable "vsphere_server" {
     type = string
     description = "esxi addresse"
 }
+
+variable "vmname"{
+    type=string
+    description="name of the vm to be created"
+    default="terraform-test"
+}

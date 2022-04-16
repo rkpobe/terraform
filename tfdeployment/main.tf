@@ -24,8 +24,19 @@ data "vsphere_resource_pool" "pool" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+resource "vsphere_file" "rhel_copy" {
+  source_datacenter  = "ha-datacenter"
+  datacenter         = "ha-datacenter"
+  source_datastore   = "WD_Slow"
+  datastore          = "WD_Slow"
+  source_file        = "/baseimage/baseimage.vmdk"
+  destination_file   = "/${var.vmname}/${var.vmname}.vmdk"
+  create_directories = true
+}
+
 
 resource "vsphere_virtual_machine" "vm" {
+  depends_on       = [vsphere_file.rhel_copy]
   name             = "terraform-test"
   datastore_id     = data.vsphere_datastore.datastore.id
   resource_pool_id = data.vsphere_resource_pool.pool.id
@@ -39,8 +50,10 @@ resource "vsphere_virtual_machine" "vm" {
   }
 
   disk {
-    label = "testmachine"
-    size  = 20
+    label = "${var.vmname}-disk"
+    path = "/${var.vmname}/${var.vmname}.vmdk"
+    datastore_id = data.vsphere_datastore.datastore.id
+    attach = true
   }
 }
 
