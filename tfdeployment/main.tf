@@ -29,7 +29,7 @@ resource "vsphere_file" "rhel_copy" {
   datacenter         = "ha-datacenter"
   source_datastore   = "WD_Slow"
   datastore          = "WD_Slow"
-  source_file        = "/baseimage/baseimage.vmdk"
+  source_file        = var.basisimage
   destination_file   = "/${var.vmname}/${var.vmname}.vmdk"
   create_directories = true
 }

@@ -19,3 +19,9 @@ variable "vmname"{
     description="name of the vm to be created"
     default="terraform-test"
 }
+
+variable "basisimage" {
+    type=string
+    description="path to the necessary vmdk"
+    default="/baseimage/baseimage.vmdk"
+}
