@@ -1,3 +1,4 @@
 tfdeployment/myplan
 tfdeployment/terraform.tfstate
-tfdeployment/terraform.tfstate.backup
+tfdeployment/terraform.tfstate.backupa
+tfdeployment/.tfvars
